@@ -1,0 +1,12 @@
+{
+  "name": "jeyroik/extas-workflow-example",
+  "description": "Example of usage workflow package for Extas",
+  "require": {
+    "jeyroik/extas-workflow": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "extas\\": "src/"
+    }
+  }
+}

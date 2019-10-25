@@ -1,0 +1,185 @@
+{
+  "name": "extas/workflow",
+  "plugins": [
+    {
+      "class": "extas\\components\\plugins\\workflows\\transitions\\TransitionToDone",
+      "stage": "workflow.to.done"
+    }
+  ],
+  "workflow_transition_dispatchers": [
+    {
+      "type": "trigger",
+      "name": "trigger__hw",
+      "template": "trigger__hello_world",
+      "schema_name": "demo",
+      "transition_name": "get_in_work",
+      "parameters": [
+        {
+          "name": "lang",
+          "value": "ru"
+        }
+      ]
+    },
+    {
+      "type": "trigger",
+      "name": "trigger__state_alert",
+      "template": "trigger__transition_finished",
+      "schema_name": "demo",
+      "transition_name": "*",
+      "parameters": []
+    },
+    {
+      "type": "validator",
+      "name": "validator_hj",
+      "template": "validator__hello_jeyroik",
+      "schema_name": "demo",
+      "transition_name": "get_in_work",
+      "parameters": []
+    },
+    {
+      "type": "validator",
+      "name": "validator_ctx_params",
+      "template": "validator__context_params",
+      "schema_name": "demo",
+      "transition_name": "done",
+      "parameters": [
+        {
+          "name": "success",
+          "value": true
+        }
+      ]
+    },
+    {
+      "type": "validator",
+      "name": "validator_ent_params",
+      "template": "validator__entity_params",
+      "schema_name": "demo",
+      "transition_name": "done",
+      "parameters": [
+        {
+          "name": "operated",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "workflow_schemas": [
+    {
+      "name": "demo",
+      "title": "",
+      "description": "",
+      "states": ["todo", "in_work", "done", "not_actual"],
+      "transitions": ["get_in_work", "done", "not_actual"],
+      "parameters": [
+        {
+          "name": "author",
+          "value": "jeyroik"
+        },
+        {
+          "name": "created_at",
+          "value": 123456789
+        },
+        {
+          "name": "updated_at",
+          "value": 123546789
+        }
+      ]
+    }
+  ],
+  "workflow_transition_dispatcher_templates": [
+    {
+      "name": "trigger__hello_world",
+      "title": "Demo trigger",
+      "description": "Print Hello World.",
+      "class": "extas\\components\\plugins\\workflows\\triggers\\TriggerHelloWorld",
+      "parameters": [
+        {
+          "name": "lang",
+          "value": "",
+          "template": "string",
+          "template@string": {
+            "min": 2,
+            "max": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "trigger__transition_finished",
+      "title": "Demo alert",
+      "description": "Print the new state of entity.",
+      "class": "extas\\components\\plugins\\workflows\\triggers\\TriggerTransitionFinished",
+      "parameters": []
+    },
+    {
+      "name": "validator__hello_jeyroik",
+      "title": "Demo. Jeyroik",
+      "description": "Check for the param `name` in a context, and it must be euqla to `jeyroik`.",
+      "class": "extas\\components\\plugins\\workflows\\validators\\ValidatorHelloJeyroik",
+      "parameters": []
+    },
+    {
+      "name": "validator__context_params",
+      "title": "Demo. Context params.",
+      "description": "Check context params by validator params.",
+      "class": "extas\\components\\plugins\\workflows\\validators\\ValidatorContextHasAllParams",
+      "parameters": []
+    },
+    {
+      "name": "validator__entity_params",
+      "title": "Demo. Entity params",
+      "description": "Check entity params by validator params",
+      "class": "extas\\components\\plugins\\workflows\\validators\\ValidatorEntityHasAllParams",
+      "parameters": []
+    }
+  ],
+  "workflow_transitions": [
+    {
+      "name": "get_in_work",
+      "title": "Get in work",
+      "description": "Get entity in work",
+      "state_from": "todo",
+      "state_to": "in_work"
+    },
+    {
+      "name": "done",
+      "title": "Done",
+      "description": "Work by entity is finished",
+      "state_from": "in_work",
+      "state_to": "done"
+    },
+    {
+      "name": "not_actual",
+      "title": "Not actual",
+      "description": "Entity is not actual now",
+      "state_from": "*",
+      "state_to": "not_actual"
+    }
+  ],
+  "workflow_states": [
+    {
+      "name": "todo",
+      "title": "To Do",
+      "description": "Start state",
+      "parameters": []
+    },
+    {
+      "name": "in_work",
+      "title": "In work",
+      "description": "Entity is under work",
+      "parameters": []
+    },
+    {
+      "name": "done",
+      "title": "Done",
+      "description": "All work by entity is finished",
+      "parameters": []
+    },
+    {
+      "name": "not_actual",
+      "title": "Not actual",
+      "description": "Entity is not actual now",
+      "parameters": []
+    }
+  ]
+}
