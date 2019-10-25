@@ -34,7 +34,12 @@
       "template": "validator__hello_jeyroik",
       "schema_name": "demo",
       "transition_name": "get_in_work",
-      "parameters": []
+      "parameters": [
+        {
+          "name": "name",
+          "value": "jeyroik"
+        }
+      ]
     },
     {
       "type": "validator",

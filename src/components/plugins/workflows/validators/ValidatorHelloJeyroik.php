@@ -39,6 +39,11 @@ class ValidatorHelloJeyroik extends Plugin implements ITransitionDispatcherExecu
             return false;
         }
 
+        if (!$dispatcher->getParameter('name')) {
+            echo '(!) Missed "name" in a validator<br/>';
+            return false;
+        }
+
         if ($context['name'] != $dispatcher->getParameter('name')->getValue('')) {
             echo '(!) Incorrect name in a context<br/>';
             return false;
