@@ -14,6 +14,7 @@ use extas\interfaces\workflows\entities\IWorkflowEntityTemplate;
  * @var $entityTemplatesRepo IWorkflowEntityTemplateRepository
  * @var $template IWorkflowEntityTemplate
  * @var $testEntity \extas\interfaces\workflows\entities\IWorkflowEntity
+ * @var $schema IWorkflowSchema
  */
 
 if (is_file(__DIR__ . '/../../.env')) {
@@ -33,6 +34,8 @@ $testEntity = $template->buildClassWithParameters([
     'operated' => false
 ]);
 
+print_r($schema->getAvailableTransitionsByFromState($testEntity, new DemoContext([])));
+
 $transited = Workflow::transit(
     $testEntity,
     'done',
@@ -50,6 +53,8 @@ $transited = Workflow::transit(
     ])
 );
 
+print_r($schema->getAvailableTransitionsByFromState($testEntity, new DemoContext([])));
+
 $transited = Workflow::transit(
     $testEntity,
     'done', $schema,
@@ -59,6 +64,8 @@ $transited = Workflow::transit(
     ])
 );
 
+print_r($schema->getAvailableTransitionsByFromState($testEntity, new DemoContext([])));
+
 $transited = Workflow::transit(
     $testEntity,
     'not_actual', $schema,
@@ -67,3 +74,5 @@ $transited = Workflow::transit(
         'lang' => 'ru'
     ])
 );
+
+print_r($schema->getAvailableTransitionsByFromState($testEntity, new DemoContext([])));
