@@ -20,10 +20,18 @@ class DemoEntity implements IWorkflowEntity
      * @param $data
      * @param $state
      */
-    public function __construct($data, $state)
+    public function __construct($data)
     {
         $this->data = $data;
-        $this->state = $state;
+        $this->state = $data['state'] ?? 'todo';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplateName(): string
+    {
+        return 'message';
     }
 
     /**

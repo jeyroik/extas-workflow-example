@@ -5,46 +5,65 @@ use extas\components\workflows\Workflow;
 use extas\components\SystemContainer;
 use extas\interfaces\workflows\schemas\IWorkflowSchema;
 use extas\interfaces\workflows\schemas\IWorkflowSchemaRepository;
-use extas\components\DemoEntity;
 use extas\components\DemoContext;
+use extas\interfaces\workflows\entities\IWorkflowEntityTemplateRepository;
+use extas\interfaces\workflows\entities\IWorkflowEntityTemplate;
+
+/**
+ * @var $schemaRepo IWorkflowSchemaRepository
+ * @var $entityTemplatesRepo IWorkflowEntityTemplateRepository
+ * @var $template IWorkflowEntityTemplate
+ * @var $testEntity \extas\interfaces\workflows\entities\IWorkflowEntity
+ */
 
 if (is_file(__DIR__ . '/../../.env')) {
-$dotenv = \Dotenv\Dotenv::create(__DIR__ . '/../../');
-$dotenv->load();
+    $dotenv = \Dotenv\Dotenv::create(__DIR__ . '/../../');
+    $dotenv->load();
 }
 
 $schemaRepo = SystemContainer::getItem(IWorkflowSchemaRepository::class);
+$entityTemplatesRepo = SystemContainer::getItem(IWorkflowEntityTemplateRepository::class);
+
 $schema = $schemaRepo->one([IWorkflowSchema::FIELD__NAME => 'demo']);
+$template = $entityTemplatesRepo->one([
+    IWorkflowEntityTemplate::FIELD__NAME => 'message'
+]);
+$testEntity = $template->buildClassWithParameters([
+    'state' => 'todo',
+    'operated' => false
+]);
 
-$testEntity = new DemoEntity([], 'todo');
-$transited = Workflow::transit($testEntity, 'done', $schema, new DemoContext(['name' => 'jeyroik']));
-
+$transited = Workflow::transit(
+    $testEntity,
+    'done',
+    $schema,
+    new DemoContext([
+        'name' => 'jeyroik'
+    ])
+);
 $transited = Workflow::transit(
     $testEntity,
     'in_work', $schema,
     new DemoContext([
-            'name' => 'jeyroik',
-            'lang' => 'ru'
-        ]
-    )
+        'name' => 'jeyroik',
+        'lang' => 'ru'
+    ])
 );
 
 $transited = Workflow::transit(
     $testEntity,
     'done', $schema,
     new DemoContext([
-            'name' => 'jeyroik',
-            'lang' => 'ru'
-        ]
-    )
+        'name' => 'jeyroik',
+        'lang' => 'ru'
+    ])
 );
 
 $transited = Workflow::transit(
     $testEntity,
     'not_actual', $schema,
     new DemoContext([
-            'name' => 'jeyroik',
-            'lang' => 'ru'
-        ]
-    )
+        'name' => 'jeyroik',
+        'lang' => 'ru'
+    ])
 );

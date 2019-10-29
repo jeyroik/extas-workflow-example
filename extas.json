@@ -71,8 +71,9 @@
   "workflow_schemas": [
     {
       "name": "demo",
-      "title": "",
-      "description": "",
+      "title": "Demo",
+      "description": "demo schema",
+      "entity_template": "message",
       "states": ["todo", "in_work", "done", "not_actual"],
       "transitions": ["get_in_work", "done", "not_actual"],
       "parameters": [
@@ -87,6 +88,35 @@
         {
           "name": "updated_at",
           "value": 123546789
+        }
+      ]
+    }
+  ],
+  "workflow_entity_templates": [
+    {
+      "name": "message",
+      "title": "Сообщение",
+      "description": "Демонстрационное сообщение",
+      "class": "extas\\components\\DemoEntity",
+      "parameters": [
+        {
+          "name": "operated",
+          "template": "bool"
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "title": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "name",
+          "template": "string",
+          "template@string": {
+            "min": 3,
+            "max": 256
+          }
         }
       ]
     }
