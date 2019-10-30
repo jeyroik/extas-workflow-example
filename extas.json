@@ -75,7 +75,7 @@
       "description": "demo schema",
       "entity_template": "message",
       "states": ["todo", "in_work", "done", "not_actual"],
-      "transitions": ["get_in_work", "done", "not_actual"],
+      "transitions": ["get_in_work", "done", "not_actual__from_in_work", "not_actual__from_todo"],
       "parameters": [
         {
           "name": "author",
