@@ -184,10 +184,17 @@
       "state_to": "done"
     },
     {
-      "name": "not_actual",
+      "name": "not_actual__from_todo",
       "title": "Not actual",
       "description": "Entity is not actual now",
-      "state_from": "*",
+      "state_from": "todo",
+      "state_to": "not_actual"
+    },
+    {
+      "name": "not_actual__from_in_work",
+      "title": "Not actual",
+      "description": "Entity is not actual now",
+      "state_from": "in_work",
       "state_to": "not_actual"
     }
   ],
