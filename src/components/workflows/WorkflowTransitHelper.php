@@ -63,6 +63,8 @@ class WorkflowTransitHelper
         ]);
         $this->entity = $template->buildClassWithParameters($entityData);
 
+        echo 'Current state = ' . $this->entity->getStateName() . '<br/><br/>';
+
         return $this;
     }
 
@@ -84,7 +86,6 @@ class WorkflowTransitHelper
     public function transitToState(string $stateName)
     {
         $this->printBeforeTransition();
-        $this->printAvailableTransitions();
         $this->printOnRunToState($stateName);
 
         $transited = Workflow::transitByState(
@@ -95,6 +96,7 @@ class WorkflowTransitHelper
         );
 
         $this->printAfterRun($transited);
+        $this->printAvailableTransitions();
     }
 
     /**
@@ -103,7 +105,6 @@ class WorkflowTransitHelper
     public function transitWithTransition(string $transitionName)
     {
         $this->printBeforeTransition();
-        $this->printAvailableTransitions();
         $this->printOnRunToTransition($transitionName);
 
         $transited = Workflow::transitByTransition(
@@ -114,6 +115,7 @@ class WorkflowTransitHelper
         );
 
         $this->printAfterRun($transited);
+        $this->printAvailableTransitions();
     }
 
     /**
@@ -165,10 +167,19 @@ class WorkflowTransitHelper
      */
     protected function printAvailableTransitions()
     {
+        $mapState = ['todo' => 0, 'in_work' => 1, 'done' => 2, 'not_actual' => 3];
+        $mapTransit = ['get_in_work' => 0, 'done' => 1, 'not_actual__from_todo' => 2, 'not_actual__from_in_work' => 3];
+        $curState = $mapState[$this->entity->getStateName()] ?? 0;
+
         $available = $this->schema->getAvailableTransitionsByFromState($this->entity, new DemoContext([]));
         echo '<br/>Available actions (transitions):<br><ul>';
         foreach ($available as $transition) {
-            echo '<li>' . $transition->getName() . ' (change status to "' . $transition->getStateToName() . '")</li>';
+            $transitIndex = $mapTransit[$transition->getName()] ?? 0;
+            echo '<li><form action="/" method="post">'
+                .' <input type="hidden" name="state[from]" value="'.$curState.'"> '
+                .' <input type="hidden" name="transition" value="'.$transitIndex.'"> '
+                .' <input type="submit" value="'.$transition->getName().'"> '
+                . ' (change status to "' . $transition->getStateToName() . '")</form></li>';
         }
         echo '</ul>';
     }

@@ -15,20 +15,8 @@
 ```text
 Current state = todo
 Available actions (transitions):
-- get_in_work (change status to "in_work")
-- not_actual__from_todo (change status to "not_actual")
-
-Run transition to "done":
-Transition runtime data:
-=====================
-
-=====================
-Transition result: failed
-
-Current state = todo
-Available actions (transitions):
-- get_in_work (change status to "in_work")
-- not_actual__from_todo (change status to "not_actual")
+ get_in_work (change status to "in_work")
+ not_actual__from_todo (change status to "not_actual")
 
 Run transition to "in_work":
 Transition runtime data:
@@ -38,29 +26,7 @@ Entity new state is "in_work"
 
 =====================
 Transition result: success
-
-Current state = in_work
-Available actions (transitions):
-- done (change status to "done")
-- not_actual__from_in_work (change status to "not_actual")
-
-Run transition to "done":
-Transition runtime data:
-=====================
-Entity new state is "done"
-
-=====================
-Transition result: success
-
-Current state = done
-Available actions (transitions):
-
-Run transition to "not_actual":
-Transition runtime data:
-=====================
-
-=====================
-Transition result: failed
+Сбросить
 ```
 
 # Объяснение
