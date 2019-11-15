@@ -29,6 +29,23 @@
       "parameters": []
     },
     {
+      "type": "condition",
+      "name": "condition_dt",
+      "template": "condition__datetime",
+      "schema_name": "demo",
+      "transition_name": "not_actual__from_in_work",
+      "parameters": [
+        {
+          "name": "datetime",
+          "value": "2019/11/31"
+        },
+        {
+          "name": "compare",
+          "value": "greater"
+        }
+      ]
+    },
+    {
       "type": "validator",
       "name": "validator_hj",
       "template": "validator__hello_jeyroik",
@@ -97,7 +114,7 @@
       "name": "message",
       "title": "Сообщение",
       "description": "Демонстрационное сообщение",
-      "class": "extas\\components\\DemoEntity",
+      "class": "extas\\components\\workflows\\entities\\WorkflowEntity",
       "parameters": [
         {
           "name": "operated",
@@ -135,6 +152,26 @@
           "template@string": {
             "min": 2,
             "max": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "condition__datetime",
+      "title": "Datetime condition",
+      "description": "Check datetime, allow to restrict execution before the set time.",
+      "class": "extas\\components\\plugins\\workflows\\conditions\\ConditionDateTime",
+      "parameters": [
+        {
+          "name": "datetime",
+          "template": "datetime",
+          "value": ""
+        },
+        {
+          "name": "compare",
+          "template": "string",
+          "template@string": {
+            "allowed": ["equal", "notEqual", "greater", "lower"]
           }
         }
       ]

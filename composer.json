@@ -2,7 +2,7 @@
   "name": "jeyroik/extas-workflow-example",
   "description": "Example of usage workflow package for Extas",
   "require": {
-    "jeyroik/extas-workflow": "*"
+    "jeyroik/extas-workflow": "0.7.*"
   },
   "autoload": {
     "psr-4": {

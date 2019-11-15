@@ -1,8 +1,8 @@
 <?php
 namespace extas\components\workflows;
 
-use extas\components\DemoContext;
 use extas\components\SystemContainer;
+use extas\components\workflows\entities\WorkflowEntityContext;
 use extas\interfaces\IItem;
 use extas\interfaces\workflows\entities\IWorkflowEntity;
 use extas\interfaces\workflows\entities\IWorkflowEntityTemplate;
@@ -41,7 +41,7 @@ class WorkflowTransitHelper
      */
     public function __construct(array $entityData, array $contextData)
     {
-        $this->setEntity($entityData)->setContext(new DemoContext($contextData))->setSchema();
+        $this->setEntity($entityData)->setContext(new WorkflowEntityContext($contextData))->setSchema();
     }
 
     /**
@@ -171,7 +171,7 @@ class WorkflowTransitHelper
         $mapTransit = ['get_in_work' => 0, 'done' => 1, 'not_actual__from_todo' => 2, 'not_actual__from_in_work' => 3];
         $curState = $mapState[$this->entity->getStateName()] ?? 0;
 
-        $available = $this->schema->getAvailableTransitionsByFromState($this->entity, new DemoContext([]));
+        $available = $this->schema->getAvailableTransitionsByFromState($this->entity, new WorkflowEntityContext([]));
         echo '<br/>Available actions (transitions):<br><ul>';
         foreach ($available as $transition) {
             $transitIndex = $mapTransit[$transition->getName()] ?? 0;
