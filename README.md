@@ -56,7 +56,7 @@ Transition result: success
 
 - Для того, чтобы решить поставленную задачу, в контекст помещаем следующие данные:
  ```php
-$context = new DemoContext([
+$context = new WorkflowEntityContext([
     'name' => 'jeyroik',
     'lang' => 'ru'
 ]);
