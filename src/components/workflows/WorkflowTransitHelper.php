@@ -21,17 +21,17 @@ class WorkflowTransitHelper
     /**
      * @var IWorkflowEntity
      */
-    protected $entity = null;
+    protected ?IWorkflowEntity $entity = null;
 
     /**
      * @var IItem
      */
-    protected $context = null;
+    protected ?IItem $context = null;
 
     /**
      * @var IWorkflowSchema
      */
-    protected $schema = null;
+    protected ?IWorkflowSchema $schema = null;
 
     /**
      * WorkflowTransitHelper constructor.

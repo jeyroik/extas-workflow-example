@@ -8,6 +8,7 @@ use extas\interfaces\workflows\schemas\IWorkflowSchema;
 use extas\interfaces\workflows\transitions\dispatchers\ITransitionDispatcher;
 use extas\interfaces\workflows\transitions\dispatchers\ITransitionDispatcherExecutor;
 use extas\interfaces\workflows\transitions\IWorkflowTransition;
+use extas\interfaces\workflows\transitions\results\ITransitionResult;
 
 /**
  * Class TriggerTransitionFinished
@@ -20,21 +21,25 @@ class TriggerTransitionFinished extends Plugin implements ITransitionDispatcherE
     /**
      * @param ITransitionDispatcher $dispatcher
      * @param IWorkflowTransition $transition
-     * @param IWorkflowEntity $entity
+     * @param IWorkflowEntity $entitySource
      * @param IWorkflowSchema $schema
      * @param IItem $context
+     * @param ITransitionResult &$result
+     * @param IWorkflowEntity $entityEdited
      *
      * @return bool
      */
     public function __invoke(
         ITransitionDispatcher $dispatcher,
         IWorkflowTransition $transition,
-        IWorkflowEntity $entity,
+        IWorkflowEntity $entitySource,
         IWorkflowSchema $schema,
-        IItem $context
-    )
+        IItem $context,
+        ITransitionResult &$result,
+        IWorkflowEntity &$entityEdited
+    ): bool
     {
-        echo 'Entity new state is "' . $entity->getStateName() . '"<br/>';
+        echo 'Entity new state is "' . $entitySource->getStateName() . '"<br/>';
 
         return true;
     }
