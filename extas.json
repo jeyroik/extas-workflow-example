@@ -1,5 +1,5 @@
 {
-  "name": "extas/workflow",
+  "name": "extas/workflow-example",
   "plugins": [
     {
       "class": "extas\\components\\plugins\\workflows\\transitions\\TransitionToDone",
